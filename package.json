@@ -2,17 +2,24 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
+    "build": "vue-tsc --noEmit && vite build && esno ./build/autoGlobalEnv.ts",
+    "build:debug": "vite build",
     "serve": "vite preview"
   },
   "dependencies": {
+    "@types/node": "^15.12.4",
+    "ant-design-vue": "^1.7.5",
     "vue": "^3.0.5"
   },
   "devDependencies": {
+    "@vitejs/plugin-legacy": "^1.4.1",
     "@vitejs/plugin-vue": "^1.2.3",
     "@vue/compiler-sfc": "^3.0.5",
+    "dotenv": "^10.0.0",
+    "esno": "^0.7.3",
     "typescript": "^4.3.2",
     "vite": "^2.3.7",
+    "vite-plugin-html": "^2.0.7",
     "vue-tsc": "^0.0.24"
   }
 }

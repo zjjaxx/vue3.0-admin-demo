@@ -7,9 +7,13 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import HelloWorld from "./components/HelloWorld.vue";
-
+import {getGlobalEnv} from "./utils/index"
 export default defineComponent({
   name: "App",
+  setup(){
+    const env=getGlobalEnv()
+    console.log("global env is",env)
+  },
   components: {
     HelloWorld,
   },
