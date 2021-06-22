@@ -26,6 +26,12 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     }))
   }
   return {
+    resolve:{
+      alias:[{
+        find:"/@/",
+        replacement:root+"/src/"
+      }]
+    },
     plugins: pluginList
   }
 }
