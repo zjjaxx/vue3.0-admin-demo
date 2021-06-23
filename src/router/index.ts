@@ -1,5 +1,6 @@
 
 import Home from "../view/home.vue"
+import {App} from "vue"
 import * as VueRouter from "vue-router"
 const routes:VueRouter.RouteRecordRaw[] = [
     { path: '/', component: Home},
@@ -17,5 +18,8 @@ const router = VueRouter.createRouter({
     history: VueRouter.createWebHashHistory(),
     routes, // `routes: routes` 的缩写
 })
-
+const installRouter=(app:App<Element>)=>{
+    app.use(router)
+}
+export {installRouter}
 export default router
