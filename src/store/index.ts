@@ -1,9 +1,11 @@
 import {App} from "vue"
 import { createPinia } from 'pinia'
+const store=createPinia()
 const installStore=(app:App<Element>)=>{
-    app.use(createPinia())
+    app.use(store)
 }
 
 export {
     installStore
 }
+export default store

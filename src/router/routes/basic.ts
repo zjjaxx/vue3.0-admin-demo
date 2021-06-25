@@ -8,10 +8,22 @@ const basicRoutes: RouteRecordRaw[] = [{
     },
 }, {
     component: () => import("/@/view/login/index.vue"),
-    path: "/login"
+    path: "/login",
+    meta:{
+        title: "login",
+    }
 }, {
     component: () => import("/@/view/register/index.vue"),
-    path: "/register"
+    path: "/register",
+    meta:{
+        title: "register",
+    }
+},{
+    component:()=>import("/@/view/mainOut/index.vue"),
+    path:"/mainout",
+    meta:{
+        ignoreAuth: true
+    }
 }]
 
 export default basicRoutes
