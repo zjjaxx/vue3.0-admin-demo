@@ -1,4 +1,4 @@
-import { RouteRecordRaw, createRouter, createWebHashHistory, Router } from "vue-router"
+import { RouteRecordRaw } from "vue-router"
 import { cloneDeep } from "lodash"
 const roleFilter = (routes: RouteRecordRaw[], roleList: string[]) => {
     const _routes = routes.filter(route => {
@@ -20,10 +20,6 @@ const flatRoutes = (pemissionRoutes: RouteRecordRaw[]): RouteRecordRaw[] => {
     _pemissionRoutes.forEach(route => {
         if (route.children) {
             mapPath(route.children,`${route.path}`)
-        }
-    })
-    _pemissionRoutes.forEach(route => {
-        if (route.children) {
             execFlat(route.children,route.children)
         }
     })
@@ -45,13 +41,6 @@ const execFlat=(children: RouteRecordRaw[],originChild:RouteRecordRaw[]):void=>{
             _child.children=[]
         }
     })
-}
-const createNewRouter = (route: RouteRecordRaw): Router => {
-    const router = createRouter({
-        history: createWebHashHistory(),
-        routes: [route]
-    })
-    return router
 }
 export {
     roleFilter,

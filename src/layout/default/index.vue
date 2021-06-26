@@ -1,17 +1,22 @@
 <template>
   <div>
-     default index
-     <router-view></router-view>
+    default index
+    <a-button type="primary">Primary</a-button>
+    <a-button>Default</a-button>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import {defineComponent} from "vue"
+import { Button } from "ant-design-vue";
+console.log("button is",Button)
+import { defineComponent } from "vue";
 export default defineComponent({
-
-})
+  components: {
+    "AButton": Button,
+  },
+});
 </script>
 
 <style>
-
 </style>

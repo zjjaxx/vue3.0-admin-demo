@@ -1,4 +1,5 @@
 import { ConfigEnv, UserConfig, loadEnv } from 'vite'
+import styleImport from 'vite-plugin-style-import';
 import vue from '@vitejs/plugin-vue'
 import legacy from '@vitejs/plugin-legacy'
 import { minifyHtml, injectHtml } from 'vite-plugin-html';
@@ -9,6 +10,17 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
   const { VITE_GLOB_APP_TITLE } = env
   const isBuild = command === 'build';
   const pluginList = [
+    styleImport({
+      libs: [
+        {
+          libraryName: 'ant-design-vue',
+          esModule: true,
+          resolveStyle: (name) => {
+            return `ant-design-vue/es/${name}/style/index`;
+          },
+        },
+      ]
+    }),
     vue(),
     // vite-plugin-html
     minifyHtml(),
@@ -31,6 +43,13 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         find:"/@/",
         replacement:root+"/src/"
       }]
+    },
+    css: {
+      preprocessorOptions: {
+        less: {
+          javascriptEnabled: true,
+        },
+      },
     },
     plugins: pluginList
   }
