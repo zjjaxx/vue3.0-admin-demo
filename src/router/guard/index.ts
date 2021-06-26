@@ -1,11 +1,11 @@
 import type { Router } from "vue-router"
+import routerInstance from "/@/router/index"
 import {asyncRoutes} from "/@/router/routes/index"
-import {roleFilter} from "/@/router/utils"
+import {roleFilter,flatRoutes} from "/@/router/utils"
 const whiteList = ["/login", "/register"]
 import { useUserStoreWithout } from "/@/store/modules/user"
-const setPemissionRouterGuard = function (router: Router) {
+const setPemissionRouterGuard =function (router: Router) {
     router.beforeEach((to, from, next) => {
-        console.log("to is", to, "from is", from)
         const useUserStore = useUserStoreWithout()
         if (whiteList.includes(to.path)) {
             next()
@@ -27,9 +27,20 @@ const setPemissionRouterGuard = function (router: Router) {
             }
         }
         else {
+            if(useUserStore.asyncRouterLoad){
+                next()
+                return
+            }
             const roleList=useUserStore.getRoleList||[]
             const pemissionRoutes=roleFilter(asyncRoutes,roleList)
-            console.log("pemissionRoutes is",pemissionRoutes)
+            const routes=flatRoutes(pemissionRoutes)
+            routes.forEach(route=>{
+                routerInstance.addRoute(route)
+            })
+            useUserStore.asyncRouterLoad=true
+            //提示 请注意，添加路由并不会触发新的导航。也就是说，除非触发新的导航，否则不会显示所添加的路由。
+            next({...to})
+            return
         }
     })
 }

@@ -12,6 +12,51 @@ const routes:RouteRecordRaw[]=[{
                 {
                     path:"detail",
                     component:()=>import("/@/view/personal/detail.vue"),
+                },
+                {
+                    path:"/superDetail",
+                    component:()=>import("/@/view/personal/superDetail.vue"),
+                    meta:{
+                        role:"super"
+                    }
+                },
+                {
+                    path:"testDetail",
+                    component:()=>import("/@/view/personal/testDetail.vue"),
+                    meta:{
+                        role:"test"
+                    }
+                }
+            ]
+        },
+        {
+            path:"info_1",
+            component:()=>import("/@/view/personal/info.vue"),
+            children:[
+                {
+                    path:"detail_1",
+                    component:()=>import("/@/view/personal/detail.vue"),
+                },
+                {
+                    path:"/superDetail_1",
+                    component:()=>import("/@/view/personal/superDetail.vue"),
+                    meta:{
+                        role:"super"
+                    }
+                },
+                {
+                    path:"testDetail_1",
+                    component:()=>import("/@/view/personal/testDetail.vue"),
+                    meta:{
+                        role:"test"
+                    },
+                    children:[{
+                        path:"testDetail_1_1",
+                        component:()=>import("/@/view/personal/testDetail.vue"),
+                        meta:{
+                            role:"test"
+                        },
+                    }]
                 }
             ]
         }

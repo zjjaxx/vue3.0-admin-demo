@@ -9,7 +9,6 @@ export default defineComponent({
   name: "App",
   setup(){
     const env=getGlobalEnv()
-    console.log("global env is",env)
   },
   components: {
   },

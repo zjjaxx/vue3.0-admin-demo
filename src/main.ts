@@ -8,3 +8,4 @@ installRouter(app)
 setPemissionRouterGuard(router)
 installStore(app)
 app.mount('#app')
+

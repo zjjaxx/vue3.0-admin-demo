@@ -7,7 +7,8 @@ export const useUserStore=defineStore({
     state(){
         return {
             token:"",
-            roleList:["test"]
+            roleList:["test"],
+            asyncRouterLoad:false
         }
     },
     getters:{
@@ -24,7 +25,6 @@ export const useUserStore=defineStore({
                 }
                 return null
             }
-            
         }
     }
 })
