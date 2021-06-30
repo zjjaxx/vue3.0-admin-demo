@@ -1,0 +1,39 @@
+.loopStyle(@counter) when (@counter > 0) {
+   .pt-@{counter} {
+      padding-top: @counter+0px;
+   }
+
+   .pl-@{counter} {
+      padding-left: @counter+0px;
+   }
+
+   .pr-@{counter} {
+      padding-right: @counter+0px;
+   }
+
+   .pb-@{counter} {
+      padding-bottom: @counter+0px;
+   }
+
+   .mt-@{counter} {
+      margin-top: @counter+0px;
+   }
+
+   .ml-@{counter} {
+      margin-left: @counter+0px;
+   }
+
+   .mr-@{counter} {
+      margin-right: @counter+0px;
+   }
+
+   .mb-@{counter} {
+      margin-bottom: @counter+0px;
+   }
+
+   .loopStyle((@counter - 2)); // 递归调用自身
+}
+
+;
+
+.loopStyle(50);

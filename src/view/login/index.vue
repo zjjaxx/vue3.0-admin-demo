@@ -1,8 +1,8 @@
 <template>
-  <div class="login">
+  <div class="zjjAdmin-login-container">
       login
       <router-link to="/">to main</router-link>
-      <button @click="setToken">settoken</button>
+      <button class="mt-48" @click="setToken">settoken</button>
   </div>
 </template>
 
@@ -23,6 +23,11 @@ export default defineComponent ({
 })
 </script>
 
-<style>
+<style scoped lang="less">
+@prefixUrl:~"@{globalScoped}-login";
 
+.@{prefixUrl}-container{
+    height: 300px;
+    background: @colorOrange;
+}
 </style>

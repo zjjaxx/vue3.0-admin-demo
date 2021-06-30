@@ -1,4 +1,5 @@
 import { ConfigEnv, UserConfig, loadEnv } from 'vite'
+import path from "path"
 import styleImport from 'vite-plugin-style-import';
 import vue from '@vitejs/plugin-vue'
 import legacy from '@vitejs/plugin-legacy'
@@ -47,6 +48,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     css: {
       preprocessorOptions: {
         less: {
+          additionalData: `@import "${path.resolve(__dirname,"./src/assets/style/global.less")}";` ,
           javascriptEnabled: true,
         },
       },

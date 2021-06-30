@@ -1,8 +1,8 @@
 <template>
-   <div class="home">
+   <div class="zjjAdmin-home-container">
        home
    </div>
-   <div>{{isLogin}}</div>
+   <div >{{isLogin}}</div>
    <button @click="login">login</button>
 </template>
 
@@ -23,6 +23,11 @@ export default defineComponent({
 }) 
 </script>
 
-<style>
+<style scoped lang="less">
+@prefixUrl:~"@{globalScoped}-home";
 
+.@{prefixUrl}-container{
+    height: 300px;
+    background: @colorOrange;
+}
 </style>
