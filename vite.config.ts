@@ -32,27 +32,42 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       }
     })
   ]
-  if(isBuild){
+  if (isBuild) {
     //浏览器兼容
     pluginList.push(legacy({
       targets: ['defaults', 'not IE 11']
     }))
   }
   return {
-    resolve:{
-      alias:[{
-        find:"/@/",
-        replacement:root+"/src/"
-      }]
+    resolve: {
+      alias: [{
+        find: "/@/",
+        replacement: root + "/src/"
+      },
+      {
+        find: "/@types/",
+        replacement: root + "/types/"
+      },
+      ]
     },
     css: {
       preprocessorOptions: {
         less: {
-          additionalData: `@import "${path.resolve(__dirname,"./src/assets/style/global.less")}";` ,
+          additionalData: `@import "${path.resolve(__dirname, "./src/assets/style/global.less")}";`,
           javascriptEnabled: true,
         },
       },
     },
-    plugins: pluginList
+    plugins: pluginList,
+    server: {
+      proxy: {
+        // 选项写法
+        '/api': {
+          target: 'http://rest.apizza.net/mock/30426cf953086844e5cc7e40c96f174e',
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api/, '')
+        }
+      }
+    }
   }
 }

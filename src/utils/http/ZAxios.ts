@@ -1,6 +1,7 @@
-import axios, { AxiosRequestConfig, AxiosInstance } from "axios"
-import { AxiosExtendOption } from "./http"
+import axios, { AxiosRequestConfig, AxiosInstance, AxiosResponse } from "axios"
+import { AxiosExtendOption} from "./http"
 import { ZAxiosCancel } from "./ZAxiosCancel"
+import {ContentTypeEnum} from "./httpEnum"
 class ZAxios {
     private config: AxiosRequestConfig
     private instance: AxiosInstance
@@ -10,9 +11,6 @@ class ZAxios {
         this.axiosExtendOption = axiosExtendOption
         this.instance = axios.create(config)
         this.setInterceptor()
-    }
-    getInstance(): AxiosInstance {
-        return this.instance
     }
     setInterceptor() {
         if (!this.axiosExtendOption.transform) {
@@ -48,7 +46,24 @@ class ZAxios {
             return res
         }, responseIntercetorCatch);
     }
-
+    supportFormData<T=any>(url:string,data:object):Promise<AxiosResponse<T>>{
+       return this.instance.post<T>(url,data,{headers:{"Content-Type":ContentTypeEnum.FORM_URLENCODED}})
+    }
+    uploadFile<T=any>(url:string,data:FormData):Promise<AxiosResponse<T>>{
+        return this.instance.post<T>(url,data,{headers:{"Content-Type":ContentTypeEnum.FORM_DATA}})
+    }
+    post<T=any>(url:string,data:object):Promise<AxiosResponse<T>>{
+        return this.instance.post<T>(url,data)
+    }
+    get<T=any>(url:string,params:object):Promise<AxiosResponse<T>>{
+        return this.instance.get<T>(url,{params})
+    }
+    put<T=any>(url:string,data:object):Promise<AxiosResponse<T>>{
+        return this.instance.put<T>(url,data)
+    }
+    delete<T=any>(url:string,data:object):Promise<AxiosResponse<T>>{
+        return this.instance.delete<T>(url,{params:data})
+    }
 
 }
 export default ZAxios
