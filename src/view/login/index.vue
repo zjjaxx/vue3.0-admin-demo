@@ -9,7 +9,9 @@
     <button class="mt-48" @click="putToken">putToken</button>
     <button class="mt-48" @click="deleteToken">deleteToken</button>
     <div>
-        <a-upload
+      <a-upload
+        :customRequest="customRequest"
+        :before-upload="beforeUpload"
         v-model:file-list="fileList"
         name="file"
         :multiple="true"
@@ -26,10 +28,10 @@
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
-import { Upload,message,Button } from "ant-design-vue";
-import { UploadOutlined } from '@ant-design/icons-vue';
+import { Upload, message, Button } from "ant-design-vue";
+import { UploadOutlined } from "@ant-design/icons-vue";
 import { useUserStore } from "/@/store/modules/user";
-import {FileInfo,FileItem} from "/@types/ant.d"
+import { FileInfo, FileItem } from "/@types/ant.d";
 import {
   login,
   loginForm,
@@ -37,16 +39,17 @@ import {
   loginPut,
   loginDelete,
 } from "/@/api/login";
-
+import { upload } from "/@/api/upload";
 export default defineComponent({
   components: {
-   UploadOutlined,
-   AButton:Button,
-   AUpload:Upload
+    UploadOutlined,
+    AButton: Button,
+    AUpload: Upload,
   },
   setup() {
     const userStore = useUserStore();
     let token = ref(userStore.getToken);
+    const fileList = ref<FileItem[]>([]);
     const setToken = async () => {
       let result;
       try {
@@ -105,14 +108,28 @@ export default defineComponent({
         console.log("catch error", error);
       }
     };
-    const handleChange = (info: FileInfo) => {
+    const customRequest=async(file: any)=>{
+       let formData = new FormData();
+      formData.append("file", file.file as any);
+      let result;
+      try {
+        result = await upload(formData);
+      } catch (error) {
+        console.log(error);
+      }
+      console.log(result?.data.result.url);
+    }
+    const beforeUpload = (file: FileItem) => {
+      console.log("file is",file)
+      return true;
+    };
+
+    const handleChange = async (info: FileInfo) => {
       if (info.file.status === "done") {
-        
       } else if (info.file.status === "error") {
-      
       }
     };
-    const fileList = ref([]);
+
     return {
       setToken,
       token,
@@ -122,6 +139,8 @@ export default defineComponent({
       deleteToken,
       handleChange,
       fileList,
+      beforeUpload,
+      customRequest
     };
   },
 });

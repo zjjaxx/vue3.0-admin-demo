@@ -60,12 +60,18 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     },
     plugins: pluginList,
     server: {
+      port:3333,
       proxy: {
         // 选项写法
         '/api': {
           target: 'http://rest.apizza.net/mock/30426cf953086844e5cc7e40c96f174e',
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api/, '')
+        },
+         // 选项写法
+         '/v1': {
+          target: 'http://localhost:3000',
+          changeOrigin: true
         }
       }
     }
